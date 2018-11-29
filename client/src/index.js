@@ -17,7 +17,7 @@ import socketIOClient from 'socket.io-client'
 
 const adresse = window.location.hostname
 const port = process.env.PORT || 5000
-const socket = socketIOClient(`${adresse}:${port}`);
+const socket = socketIOClient(`${adresse}:${port}`, {transports: ['websocket'], upgrade: false})
 console.log('Emit socket')
 console.log(window.location.hostname)
 
