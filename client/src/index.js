@@ -22,9 +22,11 @@ const connectionsOptions = {
     'tranports': ['websocket']
 }
 
-
-const socket = socketIOClient('localhost:4001');
+const adresse = window.location.hostname
+const port = 5000
+const socket = socketIOClient(`${adresse}:${port}`);
 console.log('Emit socket')
+console.log(window.location.hostname)
 
 socket.emit('test', {1: 'yop'})
 

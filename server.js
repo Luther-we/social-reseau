@@ -2,7 +2,7 @@ const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const axios = require("axios");
-const port = process.env.PORT || 4001;
+const port = process.env.PORT || 5000;
 const path = require('path')
 const sgMail = require('@sendgrid/mail');
 // const cors = require('cors')
@@ -24,6 +24,7 @@ const io = socketIo(server);
 if (process.env.NODE_ENV === 'production') {
     // Serve any static files
     app.use(express.static(path.join(__dirname, 'client/build')));
+
     // Handle React routing, return all requests to React app
     app.get('/', function(req, res) {
         res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
