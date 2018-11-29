@@ -13,7 +13,7 @@ const app = express();
 // app.use(index);
 const server = http.createServer(app);
 server.listen(port, () => console.log(`Listening on port ${port}`));
-const io = socketIo(server, {origins: ':'});
+const io = socketIo(server);
 // const corsOptions = {
 //     origin:'http://localhost:3000/#',
 //     optionsSuccessStatus: 200
@@ -33,7 +33,6 @@ if (process.env.NODE_ENV === 'production') {
 
 io.on("connection", socket => {
     console.log("New client connected", socket.id)
-
 
     socket.on('test', () => {
         console.log('yes')
