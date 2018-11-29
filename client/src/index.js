@@ -15,15 +15,8 @@ import message_fr from './translations/fr.js'
 import {ConnectedRouter} from "connected-react-router"
 import socketIOClient from 'socket.io-client'
 
-const connectionsOptions = {
-    'force new connection': true,
-    'reconnectionAttemps': 'Infinity',
-    'timeout': 10000,
-    'tranports': ['websocket']
-}
-
 const adresse = window.location.hostname
-const port = 5000
+const port = process.env.PORT || 5000
 const socket = socketIOClient(`${adresse}:${port}`);
 console.log('Emit socket')
 console.log(window.location.hostname)
