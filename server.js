@@ -21,13 +21,13 @@ const io = socketIo(server, {origins: ':'});
 
 // app.use('/lib', express.static(path.join(__dirname + '/node_modules/socket.io-client/dist/')));
 // app.use(cors(corsOptions))
-// app.get('/', function (req, res, next) {
-//     console.log(req.headers.origin)
-//     res.header('Access-Control-Allow-Origin', origin)
-//     res.sendFile('./public/html/paper.html', {
-//         root: './'
-//     })
-// });
+app.get('/', function (req, res, next) {
+    console.log(req.headers.origin)
+    res.header('Access-Control-Allow-Origin', origin)
+    res.sendFile('./public/html/paper.html', {
+        root: './'
+    })
+});
 
 
 io.on("connection", socket => {
