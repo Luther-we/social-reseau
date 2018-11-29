@@ -21,13 +21,14 @@ const io = socketIo(server, {origins: ':'});
 
 // app.use('/lib', express.static(path.join(__dirname + '/node_modules/socket.io-client/dist/')));
 // app.use(cors(corsOptions))
-app.get('/', function (req, res, next) {
-    console.log(req.headers.origin)
-    res.header('Access-Control-Allow-Origin', origin)
-    res.sendFile('./public/html/paper.html', {
-        root: './'
-    })
-});
+if (process.env.NODE_ENV === 'production') {
+    // Serve any static files
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    // Handle React routing, return all requests to React app
+    app.get('*', function(req, res) {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+}
 
 
 io.on("connection", socket => {
