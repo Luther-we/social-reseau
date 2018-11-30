@@ -2,19 +2,23 @@ const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const axios = require("axios");
-const port = 5000;
+const port = process.env.PORT || 5000;
 const path = require('path')
 const sgMail = require('@sendgrid/mail');
 // const cors = require('cors')
+
+
+
 
 
 // const index = require("./routes/index");
 const app = express();
 // app.use(index);
 const server = http.createServer(app);
+
+
 server.listen(port, () => console.log(`Listening on port ${port}`));
-const io = socketIo(server);
-// io.set('transports', ['websocket']);
+const io = socketIo(server, {origins: ':'});
 // const corsOptions = {
 //     origin:'http://localhost:3000/#',
 //     optionsSuccessStatus: 200
@@ -25,7 +29,6 @@ const io = socketIo(server);
 if (process.env.NODE_ENV === 'production') {
     // Serve any static files
     app.use(express.static(path.join(__dirname, 'client/build')));
-
     // Handle React routing, return all requests to React app
     app.get('/', function(req, res) {
         res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
@@ -35,6 +38,7 @@ if (process.env.NODE_ENV === 'production') {
 
 io.on("connection", socket => {
     console.log("New client connected", socket.id)
+
 
     socket.on('test', () => {
         console.log('yes')
@@ -48,7 +52,7 @@ io.on("connection", socket => {
             text: 'and easy to do anywhere, even with Node.js',
             html: '<strong>and easy to do anywhere, even with Node.js</strong>',
         };
-        sgMail.send(msg);
+        // sgMail.send(msg);
     })
 
     socket.on("disconnect", () => console.log("Client disconnected"));
