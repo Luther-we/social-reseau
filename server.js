@@ -5,26 +5,13 @@ const axios = require("axios");
 const port = process.env.PORT || 5000;
 const path = require('path')
 const sgMail = require('@sendgrid/mail');
-// const cors = require('cors')
 
-
-
-
-
-// const index = require("./routes/index");
 const app = express();
-// app.use(index);
 const server = http.createServer(app);
 const io = socketIo(server);
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
-// const corsOptions = {
-//     origin:'http://localhost:3000/#',
-//     optionsSuccessStatus: 200
-// }
 
-// app.use('/lib', express.static(path.join(__dirname + '/node_modules/socket.io-client/dist/')));
-// app.use(cors(corsOptions))
 if (process.env.NODE_ENV === 'production') {
     // Serve any static files
     app.use(express.static(path.join(__dirname, 'client/build')));
@@ -51,7 +38,7 @@ io.on("connection", socket => {
             text: 'and easy to do anywhere, even with Node.js',
             html: '<strong>and easy to do anywhere, even with Node.js</strong>',
         };
-        // sgMail.send(msg);
+        sgMail.send(msg);
     })
 
     socket.on("disconnect", () => console.log("Client disconnected"));
