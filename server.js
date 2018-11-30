@@ -15,10 +15,9 @@ const sgMail = require('@sendgrid/mail');
 const app = express();
 // app.use(index);
 const server = http.createServer(app);
-
-
+const io = socketIo(server);
 server.listen(port, () => console.log(`Listening on port ${port}`));
-const io = socketIo(server, {origins: ':'});
+
 // const corsOptions = {
 //     origin:'http://localhost:3000/#',
 //     optionsSuccessStatus: 200
