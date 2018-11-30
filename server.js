@@ -14,7 +14,7 @@ const app = express();
 const server = http.createServer(app);
 server.listen(port, () => console.log(`Listening on port ${port}`));
 const io = socketIo(server);
-io.set('transports', ['websocket']);
+// io.set('transports', ['websocket']);
 // const corsOptions = {
 //     origin:'http://localhost:3000/#',
 //     optionsSuccessStatus: 200
