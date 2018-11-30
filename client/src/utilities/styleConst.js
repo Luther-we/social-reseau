@@ -3,7 +3,6 @@ const paperWidth = 300
 const marginUnit = 8
 const doubleMargin = marginUnit*2
 const tripleMargin = marginUnit*3
-const tenMargin= marginUnit*10
 
 export const divWrapper = {
     textAlign: 'center',

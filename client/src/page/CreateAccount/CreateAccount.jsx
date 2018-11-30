@@ -12,9 +12,8 @@ import SelectPut from '../../component/input/SelectPut'
 import appConst from '../../utilities/appConst'
 import DatePut from '../../component/input/DatePut'
 import Title from '../../component/typography/Title'
-import {buttonNewAccount, buttonValidateFormStyle, divWrapper, paperFormStyle} from "../../utilities/styleConst";
-import Caption from "../../component/typography/Caption";
-import {submitLogin} from "../LoginForm/services/loginFormActions";
+import {buttonNewAccount, buttonValidateFormStyle, divWrapper, paperFormStyle} from '../../utilities/styleConst'
+import Caption from '../../component/typography/Caption'
 
 const validate = (values) => {
     const errors = {}

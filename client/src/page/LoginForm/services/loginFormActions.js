@@ -1,34 +1,40 @@
-import * as api from './../../../api/userApi'
+import * as apiSocket from './../../../utilities/socketIO'
 
 const ROOT = 'LOGIN_FORM'
 export const SUBMIT_LOGIN = `${ROOT}/SUBMIT_LOGIN`
 export const SUCCES_SUBMIT = `${ROOT}/SUCCES_SUBMIT`
 export const ERROR_SUBMIT = `${ROOT}/ERROR_SUBMIT`
 
-export const submitLogin = (order, value) => dispatch => {
-    console.log('submit')
+export const submitLogin = (value) => dispatch => {
+    console.log('submit', value)
     dispatch({
         type: SUBMIT_LOGIN,
         value
     })
-    switch (order) {
-        case 'connect':
-            return api.connectUser(value)
-                .then((data) => {
+        const first = new Promise((resolve, reject) => {
+                apiSocket.submitUser(value)
+                apiSocket.socket.on('userOk', (value) => {
+                console.log('Return of the mack')
+                resolve()
+            })
+
+        }).then((data) => {
+                    console.log('NOWWWWW')
                     dispatch({
                         type: SUCCES_SUBMIT,
                         data
                     })
                 })
-                .catch((e) => {
+                first.catch((e) => {
+                    console.log('NOWWWWW --------- '  )
                     dispatch({
                         type: ERROR_SUBMIT,
                         data: e
                     })
                     throw e
                 })
-    }
 }
+
 
 //
 //

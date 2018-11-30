@@ -10,6 +10,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 const sendMail= false
+
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
 
@@ -23,9 +24,14 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
+
 io.on("connection", socket => {
     console.log("New client connected", socket.id)
 
+    socket.on('submitUser', (value) => {
+        console.log('Ok OK ----', value)
+        socket.emit('userOk', {1: 2})
+    })
 
     socket.on('test', () => {
         console.log('yes')
@@ -47,6 +53,9 @@ io.on("connection", socket => {
 
     socket.on("disconnect", () => console.log("Client disconnected"));
 });
+
+
+
 // const getApiAndEmit = async socket => {
 //     try {
 //         const res = await axios.get();

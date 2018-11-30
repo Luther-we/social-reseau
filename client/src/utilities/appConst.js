@@ -8,7 +8,9 @@ const appConst = {
     regExEmail: new RegExp(/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/),
 
     // ADRESSAGE SYSTEME
-    server: 'localhost:5000'
+    server: 'localhost:5000',
+    adresse: window.location.hostname,
+    port: process.env.PORT || 5000
 }
 
 export default appConst

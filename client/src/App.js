@@ -3,8 +3,6 @@ import {HashRouter, Route, Link, Switch} from 'react-router-dom'
 import './App.css'
 import CreateAccount from './page/CreateAccount/CreateAccount'
 import LoginForm from './page/LoginForm/LoginForm'
-import FullForm from './page/FullForm/FullForm'
-import Standard from './page/Standard/Standard'
 import AppBarSN from './component/appBarSN/AppBarSN'
 import NotificationBar from "./component/notificationBar/NotificationBar";
 import {
@@ -15,7 +13,6 @@ import {
     Contact, Whoops404,
     GetParam
 } from './test/PlaceholderComponent'
-import LoginPage from "./page/LoginPage/LoginPage";
 
 
 

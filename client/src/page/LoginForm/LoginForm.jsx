@@ -13,8 +13,8 @@ import Title from '../../component/typography/Title'
 import Caption from '../../component/typography/Caption'
 import appConst from '../../utilities/appConst'
 import {buttonValidateFormStyle, paperFormStyle, buttonNewAccount, divWrapper} from '../../utilities/styleConst'
+import devConst from "../../utilities/devConst";
 
-import axios from './../../utilities/axios'
 
 const validate = (values) => {
     const errors = {}
@@ -32,44 +32,26 @@ const styles = theme => ({
     paperStyle: paperFormStyle,
     buttonValidate: buttonValidateFormStyle,
     buttonNewAccount: buttonNewAccount,
-    divWrapper: divWrapper,
-    appBar: {
-        height: 40,
-        top: 0,
-        width: '100%'
-    },
-    close: {
-        padding: theme.spacing.unit / 2,
-    },
+    divWrapper: divWrapper
 })
 
 const handdleClickNewAccount = () => {
-    console.log('test')
-    window.location.href= 'http://localhost:3000/#/createAccount'
+    window.location.href= devConst.dev ? `http://${appConst.adresse}:3000/#/createAccount` : `http://${appConst.adresse}:${appConst.port}/#/createAccount`
 }
 
 class LoginForm
     extends PureComponent {
     constructor(props) {
         super(props)
-        this.state={}
         this.submit = this.submit.bind(this)
     }
 
     submit = (values) => {
-        this.props.submitLogin('connect', values)
-        // axios.post('http://localhost:6000/submit/account', values)
-        //     .then( resp => {
-        //         if (resp.success) {
-        //
-        //         } else {
-        //             console.log("I'm like a bird")
-        //             window.location.pathname.replace('/')
-        //         }
-        //         console.log('YEAH !!!! = ', resp.data)
-        //         window.location.replace('/')
-        //     })
+        this.disabledButton = true
+        this.props.submitLogin(values)
     }
+
+    disabledButton = false
 
     render() {
         const {classes} = this.props
@@ -95,6 +77,7 @@ class LoginForm
                     <br/>
                     < Button
                         type="submit"
+                        disabled={this.disabledButton}
                         className={classes.buttonValidate}
                     > <FormattedMessage id='button.toConnect'/> </Button>
                 </form>

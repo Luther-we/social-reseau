@@ -13,26 +13,27 @@ import locale_fr from 'react-intl/locale-data/fr'
 import message_en from './translations/en.json'
 import message_fr from './translations/fr.js'
 import {ConnectedRouter} from "connected-react-router"
-import socketIOClient from 'socket.io-client'
-import devConst from './utilities/devConst'
+// import socketIOClient from 'socket.io-client'
+// import devConst from './utilities/devConst'
+// import appConst from './utilities/appConst'
 
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import {connectSocket} from "./utilities/socketIO";
 
-
-const adresse = window.location.hostname
-const port = process.env.PORT || 5000
 
 // si erreur de socket sur Heroku....
-const socket = devConst.dev ? socketIOClient(`${adresse}:${port}`) : socketIOClient(`${adresse}`)
+// const socket = devConst.dev ? socketIOClient(`${appConst.adresse}:${appConst.port}`) : socketIOClient(`${appConst.adresse}`)
 
-console.log('Emit socket')
-console.log(window.location.hostname)
+// console.log('Emit socket')
+// console.log(window.location.hostname)
 
-socket.emit('test', {1: 'yop'})
+// socket.emit('test', {1: 'yop'})
+//
+// socket.on('reponse', (data) => {
+//     console.log('fucking Yeah', data)
+// })
 
-socket.on('reponse', (data) => {
-    console.log('fucking Yeah', data)
-})
+connectSocket()
 
 addLocaleData([...locale_en, ...locale_fr])
 

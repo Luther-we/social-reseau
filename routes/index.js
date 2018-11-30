@@ -1,6 +1,8 @@
-const express = require("express");
-const router = express.Router();
-router.get("/", (req, res) => {
-    res.send({ response: "I am alive" }).status(200);
+const router = require("express").Router();
+
+router.get("/submit", (req, res) => {
+    console.log('FUUUUUUU ----------', req)
+    // res.send({ response: "I am alive" }).status(200);
 });
+
 module.exports = router;
