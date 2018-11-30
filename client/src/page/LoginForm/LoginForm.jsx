@@ -4,13 +4,15 @@ import {Field, reduxForm} from 'redux-form'
 import {compose} from 'redux'
 import {connect} from 'react-redux'
 
-import {Button, withStyles, Paper, Snackbar, IconButton} from '@material-ui/core'
-import CloseIcon from '@material-ui/icons/Close'
+import {Button, withStyles, Paper} from '@material-ui/core'
+
 import {submitLogin} from './services/loginFormActions'
 import PasswordPut from '../../component/input/PasswordPut'
 import TextInput from '../../component/input/TextInput'
 import Title from '../../component/typography/Title'
+import Caption from '../../component/typography/Caption'
 import appConst from '../../utilities/appConst'
+import {buttonValidateFormStyle, paperFormStyle, buttonNewAccount, divWrapper} from '../../utilities/styleConst'
 
 import axios from './../../utilities/axios'
 
@@ -21,16 +23,16 @@ const validate = (values) => {
         errors.email= 'error.email'
     }
 
-    console.log('Les erreurs sont = ', errors)
+    errors.password = values.password ? '' : 'error.passwordRequire'
+
     return errors
 }
 
 const styles = theme => ({
-    paperStyle: {
-        width: 300,
-        margin: 'auto',
-        marginTop: theme.spacing.unit
-    },
+    paperStyle: paperFormStyle,
+    buttonValidate: buttonValidateFormStyle,
+    buttonNewAccount: buttonNewAccount,
+    divWrapper: divWrapper,
     appBar: {
         height: 40,
         top: 0,
@@ -41,6 +43,11 @@ const styles = theme => ({
     },
 })
 
+const handdleClickNewAccount = () => {
+    console.log('test')
+    window.location.href= 'http://localhost:3000/#/createAccount'
+}
+
 class LoginForm
     extends PureComponent {
     constructor(props) {
@@ -50,68 +57,29 @@ class LoginForm
     }
 
     submit = (values) => {
-        axios.post('http://localhost:6000/submit/account', values)
-            .then( resp => {
-                if (resp.success) {
-
-                } else {
-                    console.log("I'm like a bird")
-
-                    window.location.pathname.replace('/')
-                        // return (
-                        //     <div>
-                        //         <span>BElo</span>
-                        //         <p>Hello</p>
-                        //     <Snackbar
-                        //         anchorOrigin={{
-                        //             vertical: 'bottom',
-                        //             horizontal: 'left',
-                        //         }}
-                        //         open
-                        //         autoHideDuration={6000}
-                        //         onClose={this.handleClose}
-                        //         ContentProps={{
-                        //             'aria-describedby': 'message-id',
-                        //         }}
-                        //         message={<span id="message-id">Note archived</span>}
-                        //         action={[
-                        //             <Button key="undo" color="secondary" size="small" onClick={this.handleClose}>
-                        //                 UNDO
-                        //             </Button>,
-                        //             <IconButton
-                        //                 key="close"
-                        //                 aria-label="Close"
-                        //                 color="inherit"
-                        //                 className={this.props.classes.close}
-                        //                 onClick={this.handleClose}
-                        //             >
-                        //                 <CloseIcon />
-                        //             </IconButton>,
-                        //         ]}
-                        //     />
-                        //     </div>
-                        // )
-
-                }
-                console.log('YEAH !!!! = ', resp.data)
-                window.location.replace('/')
-            })
-
-        // console.log('On Submit', values)
-        // this.props.submitLogin(values)
+        this.props.submitLogin('connect', values)
+        // axios.post('http://localhost:6000/submit/account', values)
+        //     .then( resp => {
+        //         if (resp.success) {
+        //
+        //         } else {
+        //             console.log("I'm like a bird")
+        //             window.location.pathname.replace('/')
+        //         }
+        //         console.log('YEAH !!!! = ', resp.data)
+        //         window.location.replace('/')
+        //     })
     }
 
     render() {
-        const {classes, children} = this.props
-
+        const {classes} = this.props
         return (
+            <div className={classes.divWrapper}>
             <Paper
                 className={classes.paperStyle}
             >
                 <Title idMessage ='title.connectTo'/>
-                <form
-                    className={classes.form}
-                    onSubmit={this.props.handleSubmit((values) => this.submit(values))}>
+                <form onSubmit={this.props.handleSubmit((values) => this.submit(values))}>
                     <Field
                         label='email'
                         name='email'
@@ -127,10 +95,16 @@ class LoginForm
                     <br/>
                     < Button
                         type="submit"
-                    > <FormattedMessage id='form.toConnect'/> </Button>
+                        className={classes.buttonValidate}
+                    > <FormattedMessage id='button.toConnect'/> </Button>
                 </form>
-                {children}
             </Paper>
+                <Caption idMessage='caption.noAccount'/>
+                < Button
+                    className={classes.buttonNewAccount}
+                    onClick={() => handdleClickNewAccount()}
+                > <FormattedMessage id='button.createAccount'/> </Button>
+            </div>
         )
     }
 }
@@ -141,12 +115,15 @@ const action = {
     submitLogin
 }
 
+const mapStateToProps = (state) => ({
+})
+
 export default compose(
     reduxForm({
         form: 'connect',
         validate
     }),
     connect(
-        null,
+        mapStateToProps,
         action
     ), withStyles(styles))(LoginForm)

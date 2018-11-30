@@ -14,10 +14,10 @@ class TextInput
 
     render() {
         const {label, input, meta, type, required, autoComplete, classes} = this.props
-        console.log(classes.errorS)
 
         return (
-            <FormControl>
+            <FormControl
+            className={classes.fieldS}>
                 <InputLabel htmlFor="adornment-password"><FormattedMessage id={`form.${label}`} /> {required ? '*': ''}</InputLabel>
                 <Input
                     id={label}
@@ -27,7 +27,7 @@ class TextInput
                     type={type ? type : 'text'}
                     {...input}
                 />
-                {meta && meta.error && meta.touched && meta.dirty &&
+                {meta && meta.error && meta.touched &&
                 <FormHelperText
                     className={classes.errorS}
                     id={meta.error}>

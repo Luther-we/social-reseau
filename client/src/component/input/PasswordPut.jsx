@@ -47,7 +47,8 @@ class PasswordPut
             meta
         } = this.props
         return (
-            <FormControl>
+            <FormControl
+                className={classes.fieldS}>
                 <InputLabel htmlFor="adornment-password"><FormattedMessage id={`form.${label}`}/> {required ? '*' : ''}
                 </InputLabel>
                 <Input
@@ -56,7 +57,7 @@ class PasswordPut
                     name={label}
                     type={showPassword ? 'text' : 'password'}
                     value={this.state.password}
-                    error={meta.error && meta.touched && meta.dirty}
+                    error={meta.error && meta.touched }
                     className={classes.fieldS}
                     onChange={this.handleChange('password')}
                     endAdornment={control ?
@@ -71,7 +72,7 @@ class PasswordPut
                         : ''}
                     {...input}
                 />
-                {meta && meta.error && meta.touched && meta.dirty &&
+                {meta && meta.error && meta.touched  &&
                 <FormHelperText
                     className={classes.errorS}
                     id="component-error-text">

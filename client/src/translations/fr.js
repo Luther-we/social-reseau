@@ -5,7 +5,6 @@ export default flatten({
         firstname: "Prénom",
         lastname: "Nom",
         password: "Mot de passe",
-        submit: "Valider",
         toConnect: "Se connecter",
         email: "Adresse Email",
         confirmPassword: "Confirmation du mot de passe",
@@ -14,8 +13,17 @@ export default flatten({
         zipCode: "Code Postal",
         cellPhone: "Téléphone mobile"
     },
+    button: {
+        toConnect: "Se connecter",
+        createAccount: 'Créer un compte',
+        submit: "Valider"
+    },
+    caption: {
+        noAccount: 'Pas encore de compte ?',
+        yetAccount: 'Vous-avez déjà un compte ?'
+    },
     title: {
-        createAccount: "Créer un compte",
+        createAccount: 'Créer un compte',
         connectTo: 'Connexion'
     },
     language: {
@@ -34,6 +42,7 @@ export default flatten({
         passwordElement: 'Votre mot de passe doit contenir au moins 1 minuscule, 1 majuscule, 1 chiffre et doit-être d\'une' +
             ' longeur de 8 à 12 caractères',
         confirmPassword: 'Le mot de passe et sa confirmation ne sont pas similaires',
-        email: 'Est-ce vraiment une adresse mail valide ?'
+        email: 'Est-ce vraiment une adresse mail valide ?',
+        passwordRequire: 'Mot de passe requis'
     }
 })

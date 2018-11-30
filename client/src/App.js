@@ -15,6 +15,7 @@ import {
     Contact, Whoops404,
     GetParam
 } from './test/PlaceholderComponent'
+import LoginPage from "./page/LoginPage/LoginPage";
 
 
 
@@ -27,45 +28,62 @@ class App
         response: ''
     };
 
-    componentWillMount()  {
 
+    componentWillMount()  {
+            // getToken()
+    }
+
+    componentWillUpdate(){
+        console.log(window.location.hostname)
     }
 
     render() {
         console.log('--------->', window.location.href)
-
-        return (
-            <HashRouter>
-                <div>
-                    <Switch>
-                        <Route exact path='/' component={Home} />
-                        <Route path='/about' component={About} />
-                        <Route path='/events' component={Events} />
-                        <Route path='/products' component={Products} />
-                        <Route path='/contact' component={Contact} />
-                        <Route exact path='/takeit/:id' component={GetParam}/>
-                        <Route component={Whoops404}/>
-                    </Switch>
+        console.log('--------->', window.location.hash)
+        const simState = {
+            user: false
+        }
 
 
+        localStorage.setItem('token', false)
+                return (
+                    <HashRouter>
+                        <div>
+                            <Switch>
+                                {!localStorage.getItem('token') && !simState.user && <Route path='*' component={Events} />}
+                                <Route exact path='/' component={Home} />
+                                <Route path='/login' component={LoginForm} />
+                                <Route path='/createAccount' component={CreateAccount} />
+                                <Route path='/about' component={About} />
+                                <Route path='/events' component={Events} />
+                                <Route path='/products' component={Products} />
+                                <Route path='/profil' component={Contact} />
+                                <Route exact path='/takeit/:id' component={GetParam}/>
+                                <Route component={Whoops404}/>
+                            </Switch>
 
-            <div className="App" style={{width: '100%'}}>
-
-                    <header>
-                        <Link to="/">Home</Link>
-                        <Link to="/login">login</Link>
-                        <Link to="/full">Full</Link>
-                        <Link to='/test'>Test</Link>
-                    </header>
 
 
-                    <p className="App-intro">{this.state.response}</p>
-                <AppBarSN/>
-                <NotificationBar/>
-            </div>
-                </div>
-            </HashRouter>
-        )
+                            <div className="App" style={{width: '100%'}}>
+
+                                <header>
+                                    <Link to="/">Home</Link>
+                                    <Link to="/login">login</Link>
+                                    <Link to="/full">Full</Link>
+                                    <Link to='/test'>Test</Link>
+                                </header>
+
+
+                                <p className="App-intro">{this.state.response}</p>
+                                <AppBarSN/>
+                                <NotificationBar/>
+                            </div>
+                        </div>
+                    </HashRouter>
+                )
+
+
+
     }
 }
 

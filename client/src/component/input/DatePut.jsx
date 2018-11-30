@@ -1,21 +1,25 @@
 import React, {PureComponent} from 'react'
-import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 
-import {TextField} from '@material-ui/core'
+import {TextField, withStyles} from '@material-ui/core'
+import {errorStyle, fieldStyle} from "../../utilities/styleConst";
+
+const style = {
+    errorS: errorStyle,
+    fieldS: fieldStyle
+}
 
 class DatePut extends PureComponent {
 
     render() {
-        const {label, className, defaultDate, input} = this.props
+        const {label, classes, input} = this.props
         return (
                 <TextField
                     id={label}
                     label={<FormattedMessage id={`form.${label}`} />}
                     type="date"
-                    defaultValue={defaultDate}
-                    className={className}
+                    className={classes.fieldS}
 
                     InputLabelProps={{
                         shrink: true,
@@ -27,16 +31,7 @@ class DatePut extends PureComponent {
 }
 
 DatePut.propTypes = {
-    label: PropTypes.string.isRequired,
-    className: PropTypes.string.isRequired,
-    defaultDate: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired
 }
 
-const mapStateToProps = state => ({
-})
-
-const actions = {
-
-}
-
-export default connect(mapStateToProps, actions)(DatePut)
+export default withStyles(style)(DatePut)

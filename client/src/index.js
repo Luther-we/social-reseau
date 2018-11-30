@@ -14,12 +14,17 @@ import message_en from './translations/en.json'
 import message_fr from './translations/fr.js'
 import {ConnectedRouter} from "connected-react-router"
 import socketIOClient from 'socket.io-client'
+import devConst from './utilities/devConst'
+
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+
 
 const adresse = window.location.hostname
-// const port = process.env.PORT || 5000
-const port = 5000
-const socket = socketIOClient(`${adresse}`)
-// const socket = socketIOClient()
+const port = process.env.PORT || 5000
+
+// si erreur de socket sur Heroku....
+const socket = devConst.dev ? socketIOClient(`${adresse}:${port}`) : socketIOClient(`${adresse}`)
+
 console.log('Emit socket')
 console.log(window.location.hostname)
 
@@ -30,6 +35,9 @@ socket.on('reponse', (data) => {
 })
 
 addLocaleData([...locale_en, ...locale_fr])
+
+export const theme = createMuiTheme();
+
 
 const messages = {
     'fr': message_fr,
@@ -43,7 +51,9 @@ render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <IntlProvider locale={language} messages={messages[language]}>
-                <App/>
+                <MuiThemeProvider theme={theme}>
+                    <App/>
+                </MuiThemeProvider>
             </IntlProvider>
         </ConnectedRouter>
     </Provider>,

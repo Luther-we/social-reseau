@@ -3,7 +3,13 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 import {FormattedMessage} from "react-intl";
-import {FormControl, InputLabel, MenuItem, Select, FormHelperText, Input} from '@material-ui/core'
+import {FormControl, InputLabel, MenuItem, Select, FormHelperText, Input, withStyles} from '@material-ui/core'
+import {errorStyle, fieldStyle} from "../../utilities/styleConst";
+
+const style = {
+    errorS: errorStyle,
+    fieldS: fieldStyle
+}
 
 class SelectPut
     extends PureComponent {
@@ -18,13 +24,14 @@ class SelectPut
     }
 
     render() {
-        const {label, tabItem, error, className} = this.props
+        const {label, tabItem, meta, classes} = this.props
         return (
-            <FormControl>
+            <FormControl
+                className={classes.fieldS}>
                 <InputLabel htmlFor={label}><FormattedMessage id={`${label}.title`}/></InputLabel>
                 <Select
                     value={this.state.value}
-                    className={className}
+                    className={classes.fieldS}
                     onChange={this.handleChange}
                     input={<Input name={label} id={label}/>}
                 >
@@ -35,7 +42,7 @@ class SelectPut
                         )
                     })}
                 </Select>
-                <FormHelperText>{error}</FormHelperText>
+                <FormHelperText>{meta.error}</FormHelperText>
             </FormControl>
         )
     }
@@ -46,8 +53,4 @@ SelectPut.propType = {
     tabItem: PropTypes.array
 }
 
-const mapStateToProps = state => ({})
-
-const actions = {}
-
-export default connect(mapStateToProps, actions)(SelectPut)
+export default withStyles(style)(SelectPut)

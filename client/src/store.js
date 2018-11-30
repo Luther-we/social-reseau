@@ -6,7 +6,9 @@ import rootReducer from './modules/index'
 
 export const history = createHistory()
 
-const initialState = {}
+const initialState = {
+  path: ''
+}
 const enhancers = []
 const middleware = [thunk, routerMiddleware(history)]
 

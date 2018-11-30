@@ -9,6 +9,7 @@ const sgMail = require('@sendgrid/mail');
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
+const sendMail= false
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
 
@@ -38,7 +39,10 @@ io.on("connection", socket => {
             text: 'and easy to do anywhere, even with Node.js',
             html: '<strong>and easy to do anywhere, even with Node.js</strong>',
         };
-        sgMail.send(msg);
+        if (sendMail) {
+            sgMail.send(msg);
+        }
+
     })
 
     socket.on("disconnect", () => console.log("Client disconnected"));

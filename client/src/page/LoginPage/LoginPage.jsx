@@ -1,65 +1,53 @@
 import React, {PureComponent} from 'react'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import completeUser from './services/loginPageActions'
 import ConnectForm from '../LoginForm/LoginForm'
-import {AppBar} from "@material-ui/core";
-
+import devConst from '../../utilities/devConst'
 
 
 class LoginPage extends PureComponent {
 
-componentWillMount() {
-    if (user && user.token && user.token !== ''){
-        this.props.currentPage= 'wall'
-    } else {
-        const token = window.localStorage.getItem('token') || null
-        if (token === null) {
-            this.props.currentPage= 'login'
-        } else {
-            setUserToken(token)
+    componentWillMount() {
+        if (devConst.token) {
+            if (devConst.user) {
+                window.location.href = 'http://localhost:3000/#/profil'
+            } else {
+                console.log('We need a user in state VIA Login Page ')
+            }
         }
     }
-}
 
-    if (token) {
-        callServer(token)
-            .then(response => {
-                if (response.user) {
-                    completeUser(response)
-                } else {
-                    currentPage='connectForm'
-                }
-            })
-            .catch(e => console.log(e))
-    } else {
-        currentPage='connectForm'
-    }
+    // if (token) {
+    //     callServer(token)
+    //         .then(response => {
+    //             if (response.user) {
+    //                 completeUser(response)
+    //             } else {
+    //                 currentPage='connectForm'
+    //             }
+    //         })
+    //         .catch(e => console.log(e))
+    // } else {
+    //     currentPage='connectForm'
+    // }
 
     render() {
-        const {currentPage} = this.props
-        switch (currentPage) {
-            case 'connectForm':
-                return (
-                   <ConnectForm/>
-                )
-            case 'profil':
-                return (
-                    <Profil/>
-                )
-        }
-
+        const {children} = this.props
+        return (
+            <div>
+                {children}
+            </div>
+        )
     }
 }
 
 const actions = {
-    completeUser
 }
 
 LoginPage.propTypes = {
-    completeUser: PropTypes.bool.isRequired
 }
+
 const mapStateToProps = state => {
-    currentPage: state.currentPage
 }
 
 export default connect(mapStateToProps, actions)(LoginPage)
