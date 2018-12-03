@@ -1,6 +1,6 @@
 const devConst = {
     sendMail: false,
-    dev: false,
+    dev: true,
     user: false,
     token: false
 }

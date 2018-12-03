@@ -5,12 +5,9 @@ import {
     FormControl,
     InputLabel,
     Input,
-    InputAdornment,
-    IconButton,
     FormHelperText,
     withStyles
 } from '@material-ui/core'
-import {VisibilityOff, Visibility} from '@material-ui/icons'
 import PropTypes from 'prop-types'
 import {setShowPassword} from "./services/inputActions";
 import {FormattedMessage} from 'react-intl'
@@ -21,13 +18,8 @@ const style = {
     fieldS: fieldStyle
 }
 
-class PasswordPut
+class ConfirmPasswordPut
     extends PureComponent {
-
-    handleClickShowPassword = () => {
-        this.props.setShowPassword()
-    }
-
     render() {
         const {
             label,
@@ -51,17 +43,6 @@ class PasswordPut
                     error={meta.error && meta.touched }
                     className={classes.fieldS}
                     {...input}
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                aria-label="Toggle password visibility"
-                                onClick={this.handleClickShowPassword}
-                            >
-                                {showPassword ? <VisibilityOff/> : <Visibility/>}
-                            </IconButton>
-                        </InputAdornment>
-                        }
-
                 />
                 {meta && meta.error && meta.touched  && meta.dirty &&
                 <FormHelperText
@@ -74,7 +55,7 @@ class PasswordPut
     }
 }
 
-PasswordPut.propType = {
+ConfirmPasswordPut.propType = {
     setShowPassword: PropTypes.func.isRequired
 }
 
@@ -89,4 +70,4 @@ const actions = {
 export default compose(
     connect(mapStateToProps, actions),
     withStyles(style)
-)(PasswordPut)
+)(ConfirmPasswordPut)

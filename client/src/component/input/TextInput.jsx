@@ -30,7 +30,7 @@ class TextInput
                 {meta && meta.error && meta.touched &&
                 <FormHelperText
                     className={classes.errorS}
-                    id={meta.error}>
+                    >
                     <FormattedMessage id={meta.error}/>
                 </FormHelperText>}
             </FormControl>

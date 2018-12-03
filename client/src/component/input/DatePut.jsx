@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 
-import {TextField, withStyles} from '@material-ui/core'
+import {FormControl, FormHelperText, TextField, withStyles} from '@material-ui/core'
 import {errorStyle, fieldStyle} from "../../utilities/styleConst";
 
 const style = {
@@ -10,15 +10,19 @@ const style = {
     fieldS: fieldStyle
 }
 
-class DatePut extends PureComponent {
+class DatePut
+    extends PureComponent {
 
     render() {
-        const {label, classes, input} = this.props
+        const {label, classes, input, meta} = this.props
         return (
+            <FormControl
+                className={classes.fieldS}>
                 <TextField
                     id={label}
-                    label={<FormattedMessage id={`form.${label}`} />}
+                    label={<FormattedMessage id={`form.${label}`}/>}
                     type="date"
+                    error={meta.error && meta.touched}
                     className={classes.fieldS}
 
                     InputLabelProps={{
@@ -26,6 +30,13 @@ class DatePut extends PureComponent {
                     }}
                     {...input}
                 />
+                {meta && meta.error && meta.touched &&
+                    <FormHelperText
+                        className={classes.errorS}
+                    >
+                        <FormattedMessage id={meta.error}/>
+                    </FormHelperText>}
+            </FormControl>
         )
     }
 }

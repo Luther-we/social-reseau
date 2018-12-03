@@ -1,6 +1,8 @@
 import notificationBarReducer from './component/notificationBar/services/notificationBarReducer'
-import loginFormReducer from './page/LoginForm/services/loginFormReducer'
+import userReducer from './component/App/services/appReducer'
+import authReducer from './component/auth/services/authReducer'
 
 
 export const notificationBar = notificationBarReducer
-export const loginForm = loginFormReducer
+export const user = userReducer
+export const auth = authReducer

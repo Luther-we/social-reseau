@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 
-import {FormattedMessage} from "react-intl";
+import {FormattedMessage} from 'react-intl'
 import {FormControl, InputLabel, MenuItem, Select, FormHelperText, Input, withStyles} from '@material-ui/core'
 import {errorStyle, fieldStyle} from "../../utilities/styleConst";
 
@@ -23,7 +23,7 @@ class SelectPut
     }
 
     render() {
-        const {label, tabItem, meta, classes} = this.props
+        const {label, tabItem, meta, classes, input} = this.props
         return (
             <FormControl
                 className={classes.fieldS}>
@@ -31,8 +31,10 @@ class SelectPut
                 <Select
                     value={this.state.value}
                     className={classes.fieldS}
+                    error={meta.error && meta.touched}
                     onChange={this.handleChange}
                     input={<Input name={label} id={label}/>}
+                    {...input}
                 >
                     {tabItem.map((item, index) => {
                         return (
@@ -41,7 +43,11 @@ class SelectPut
                         )
                     })}
                 </Select>
-                <FormHelperText>{meta.error}</FormHelperText>
+                {meta && meta.error && meta.touched &&
+                    <FormHelperText
+                        className={classes.errorS}
+                    ><FormattedMessage id={meta.error} /></FormHelperText>
+                }
             </FormControl>
         )
     }

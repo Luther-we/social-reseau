@@ -4,36 +4,24 @@ import {Provider} from 'react-redux'
 import store, {history} from './store'
 
 import './index.css'
-
-import App from './App'
-
 import {IntlProvider, addLocaleData} from 'react-intl'
 import locale_en from 'react-intl/locale-data/en'
 import locale_fr from 'react-intl/locale-data/fr'
 import message_en from './translations/en.json'
 import message_fr from './translations/fr.js'
 import {ConnectedRouter} from "connected-react-router"
-// import socketIOClient from 'socket.io-client'
-// import devConst from './utilities/devConst'
-// import appConst from './utilities/appConst'
 
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
-import {connectSocket} from "./utilities/socketIO";
-
-
-// si erreur de socket sur Heroku....
-// const socket = devConst.dev ? socketIOClient(`${appConst.adresse}:${appConst.port}`) : socketIOClient(`${appConst.adresse}`)
-
-// console.log('Emit socket')
-// console.log(window.location.hostname)
-
-// socket.emit('test', {1: 'yop'})
-//
-// socket.on('reponse', (data) => {
-//     console.log('fucking Yeah', data)
-// })
-
-connectSocket()
+import {HashRouter, Route, Switch} from "react-router-dom";
+import NotificationBar from './component/notificationBar/NotificationBar'
+import Login from './component/Login/Login'
+import SignIn from './component/SignIn/SignIn'
+import Profile from './component/container/Profile/Profile'
+import Wall from './component/container/Wall/Wall'
+import User from "./component/container/User/User";
+import Messenger from "./component/container/Messenger/Messenger";
+import Admin from './component/container/Admin/Admin'
+import Whoops404 from './component/container/Error/Whoops404'
 
 addLocaleData([...locale_en, ...locale_fr])
 
@@ -53,7 +41,24 @@ render(
         <ConnectedRouter history={history}>
             <IntlProvider locale={language} messages={messages[language]}>
                 <MuiThemeProvider theme={theme}>
-                    <App/>
+                    <HashRouter>
+                        <div>
+                            <Switch>
+                                <Route exact path='/' component={Wall} />
+                                <Route path='/user' component={User}/>
+                                <Route path='/profile' component={Profile}/>
+                                <Route path='/messenger' component={Messenger}/>
+                                <Route path='/admin' component={Admin}/>
+                                <Route path='/login' component={Login} />
+                                <Route path='/signIn' component={SignIn} />
+                                <Route component={Whoops404}/>
+                            </Switch>
+
+                            <div className="App" style={{width: '100%'}}>
+                                <NotificationBar/>
+                            </div>
+                        </div>
+                    </HashRouter>
                 </MuiThemeProvider>
             </IntlProvider>
         </ConnectedRouter>
