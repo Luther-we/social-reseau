@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="676dd6a7-4847-4caa-ae6e-49cf2afc1226" name="Default Changelist" comment="a">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -148,7 +145,7 @@
           <entry key="dummy" value="6" />
           <entry key="env" value="35" />
           <entry key="gitignore" value="14" />
-          <entry key="js" value="19345" />
+          <entry key="js" value="19349" />
           <entry key="json" value="67" />
           <entry key="jsx" value="14429" />
           <entry key="txt" value="1" />
@@ -159,7 +156,7 @@
         <counts>
           <entry key="JSON" value="67" />
           <entry key="JSX Harmony" value="14429" />
-          <entry key="JavaScript" value="19345" />
+          <entry key="JavaScript" value="19349" />
           <entry key="PLAIN_TEXT" value="62" />
         </counts>
       </usages-collector>
@@ -176,7 +173,7 @@
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="308">
-              <caret line="32" column="70" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="70" />
+              <caret line="32" column="90" selection-start-line="32" selection-start-column="90" selection-end-line="32" selection-end-column="90" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -494,7 +491,7 @@
       <workItem from="1543790755485" duration="25590000" />
       <workItem from="1543849299206" duration="18457000" />
       <workItem from="1543924763573" duration="22950000" />
-      <workItem from="1543956138648" duration="2119000" />
+      <workItem from="1543956138648" duration="2788000" />
     </task>
     <task id="LOCAL-00001" summary="Testing &amp; installation">
       <created>1543074542605</created>
@@ -507,13 +504,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="313957000" />
+    <option name="totallyTimeSpent" value="314626000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1148" y="35" width="1654" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16533987" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16533987" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -527,7 +524,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.30455408" side_tool="true" weight="0.27308193" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.6954459" visible="true" weight="0.3407022" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.6954459" visible="true" weight="0.3407022" />
       <window_info anchor="bottom" id="TypeScript" order="11" weight="0.32943678" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -912,7 +909,7 @@
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
-          <caret line="32" column="70" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="70" />
+          <caret line="32" column="90" selection-start-line="32" selection-start-column="90" selection-end-line="32" selection-end-column="90" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

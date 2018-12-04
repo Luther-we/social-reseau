@@ -30,8 +30,8 @@ const exjwt = require('express-jwt');
 // const userCollection = 'test'
 
 
-const urlDb = "mongodb://heroku_j7ckfmlg:fokty2-pevvih-quRkip@ds215093.mlab.com:15093/heroku_j7ckfmlg";
-const dbName = 'heroku_j7ckfmlg';
+const urlDb = "mongodb://heroku_n1xpb5mr:n1xpb5mr@ds257981.mlab.com:57981/heroku_n1xpb5mr"
+const dbName = 'heroku_n1xpb5mr';
 const userCollection = 'user'
 
 
