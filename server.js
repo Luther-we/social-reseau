@@ -33,8 +33,8 @@ const exjwt = require('express-jwt');
 const urlDb = "mongodb://heroku_n1xpb5mr:n1xpb5mr@ds257981.mlab.com:57981/heroku_n1xpb5mr"
 const dbName = 'heroku_n1xpb5mr';
 const userCollection = 'user'
-server.listen()
-// server.listen(port, () => console.log(`Listening on port ${port}`));
+// server.listen()
+server.listen(port, () => console.log(`Listening on port ${port}`));
 
 
 app.use((req, res, next) => {
@@ -45,6 +45,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+if (process.env.NODE_ENV === 'production') {
+    // Serve any static files
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    // Handle React routing, return all requests to React app
+    app.get('/', function (req, res) {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+}
+
 
 const jwtMW = exjwt({
     secret: 'i change something 2day'
@@ -52,10 +61,11 @@ const jwtMW = exjwt({
 
 /// CHECKING DIVERS ET VARIE SUR DB
 const getAllUser = () => {
-    return new Promise((resolve, reject) => {
-        mongo.connect(urlDb, {useNewUrlParser: true}, function(err, client){
-            const collectionUser = client.db(dbName).collection(userCollection);
-            collectionUser.find({}, {
+    new Promise((resolve, reject) => {
+        mongo.connect(urlDb, {useNewUrlParser: true},(err, client) => {
+            if (typeof client !== 'undefined' && client !== null) {
+                const collectionUser = client.db(dbName).collection(userCollection);
+                collectionUser.find({}, {
                     projection: {
                         _id: 0,
                         pseudo: 1,
@@ -68,6 +78,8 @@ const getAllUser = () => {
                     console.log('////// Ceci est un retour de data', exist)
                     exist ? resolve(exist) : reject(err)
                 })
+            }
+
         })
     })
 }
@@ -75,12 +87,14 @@ const getAllUser = () => {
 const existUser = (propDB, value) => {
     return new Promise((resolve, reject) => {
         mongo.connect(urlDb, {useNewUrlParser: true}, function(err, client){
-            const collectionUser = client.db(dbName).collection(userCollection);
-            collectionUser.findOne({
-                [`${propDB}`]: value
-            }, (err, exist) => {
-                exist ? resolve(exist) : reject(err)
-            })
+            if (typeof client !== 'undefined' && client !== null) {
+                const collectionUser = client.db(dbName).collection(userCollection);
+                collectionUser.findOne({
+                    [`${propDB}`]: value
+                }, (err, exist) => {
+                    exist ? resolve(exist) : reject(err)
+                })
+            }
         })
     })
 }
@@ -88,13 +102,15 @@ const existUser = (propDB, value) => {
 const removeUser = (propDB, value) => {
     return new Promise((resolve, reject) => {
         mongo.connect(urlDb, {useNewUrlParser: true}, function(err, client){
-            const collectionUser = client.db(dbName).collection(userCollection);
-            collectionUser.remove({
-                [`${propDB}`]: value
-            }, (err, ok) => {
-                ok ? console.log('UIIIIII') : console.log('NOOOOOOOOO')
-                ok ? resolve(ok) : reject(err)
-            })
+            if (typeof client !== 'undefined' && client !== null) {
+                const collectionUser = client.db(dbName).collection(userCollection);
+                collectionUser.remove({
+                    [`${propDB}`]: value
+                }, (err, ok) => {
+                    ok ? console.log('UIIIIII') : console.log('NOOOOOOOOO')
+                    ok ? resolve(ok) : reject(err)
+                })
+            }
         })
     })
 }
@@ -197,33 +213,35 @@ app.post('/signup', (req, res) => {
                 (data) => {
                     console.log(data)
                     mongo.connect(urlDb, {useNewUrlParser: true}, function(err, client){
-                        const collectionUser = client.db(dbName).collection(userCollection);
-                        collectionUser.insertOne({
-                            userId,
-                            pseudo,
-                            lastname,
-                            firstname,
-                            email,
-                            gender,
-                            age,
-                            city,
-                            zipCode,
-                            cellPhone,
-                            password: hash,
-                            verifEmail: false,
-                            createAccount: timeStamp,
-                            rule: 0,
-                            profileCover: 'https://previews.123rf.com/images/chekat/chekat1512/chekat151200014/49320319-seamless-de-bananes-m%C3%BBres-jaunes-sur-un-fond-bleu.jpg',
-                            profilePicture: 'https://www.hominides.com/data/images/illus/grands_singes/gorille-genome-sequence.jpg'
-                        }, (err, success) => {
-                            if (success) {
-                                console.log("User created: ");
-                                res.json({error: false, idMessage: 'valid.userCreated'});
-                            } else if (err) {
-                                console.log('------------- User pas enregistré -----------')
-                                res.json({error: true, idMessage: 'error.somethingWrong'})
-                            }
-                        })
+                        if (typeof client !== 'undefined' && client !== null) {
+                            const collectionUser = client.db(dbName).collection(userCollection);
+                            collectionUser.insertOne({
+                                userId,
+                                pseudo,
+                                lastname,
+                                firstname,
+                                email,
+                                gender,
+                                age,
+                                city,
+                                zipCode,
+                                cellPhone,
+                                password: hash,
+                                verifEmail: false,
+                                createAccount: timeStamp,
+                                rule: 0,
+                                profileCover: 'https://previews.123rf.com/images/chekat/chekat1512/chekat151200014/49320319-seamless-de-bananes-m%C3%BBres-jaunes-sur-un-fond-bleu.jpg',
+                                profilePicture: 'https://www.hominides.com/data/images/illus/grands_singes/gorille-genome-sequence.jpg'
+                            }, (err, success) => {
+                                if (success) {
+                                    console.log("User created: ");
+                                    res.json({error: false, idMessage: 'valid.userCreated'});
+                                } else if (err) {
+                                    console.log('------------- User pas enregistré -----------')
+                                    res.json({error: true, idMessage: 'error.somethingWrong'})
+                                }
+                            })
+                        }
                     })
 
                 })
@@ -302,14 +320,7 @@ app.post('/log-in', (req, res) => {
 
 
 
-if (process.env.NODE_ENV === 'production') {
-    // Serve any static files
-    app.use(express.static(path.join(__dirname, 'client/build')));
-    // Handle React routing, return all requests to React app
-    app.get('/', function (req, res) {
-        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-    });
-}
+
 
 
 io.on("connection", socket => {

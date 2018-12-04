@@ -29,7 +29,6 @@ export default function withAuth(AuthComponent) {
                     /* Oh snap! Looks like there's an error so we'll print it out and log the user out for security reasons. */
                     console.log(err);
                     Auth.logout();
-                    console.log('fucking day')
                     this.props.history.replace("/login");
                 }
             }
@@ -38,7 +37,7 @@ export default function withAuth(AuthComponent) {
         render() {
             if (this.state.loaded == true) {
                 if (this.state.confirm) {
-                    console.log("confirmed!");
+                    // console.log("confirmed!");
                     return (
                         /* component that is currently being wrapper(App.js) */
                         <AuthComponent
@@ -47,7 +46,7 @@ export default function withAuth(AuthComponent) {
                         />
                     );
                 } else {
-                    console.log("not confirmed!");
+                    // console.log("not confirmed!");
                     return null;
                 }
             } else {

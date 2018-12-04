@@ -3,7 +3,6 @@ export const SAVE_USER = `${ROOT}/SAVE_USER`
 export const SET_USER_FRIENDS = `${ROOT}/SET_USER_FRIENDS`
 
 export const saveUser = (data) => dispatch => {
-    console.log('calling')
     dispatch ({
         type: SAVE_USER,
         data

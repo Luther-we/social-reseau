@@ -3,7 +3,6 @@ import decode from "jwt-decode";
 export default class AuthHelperMethods {
     // Initializing important variables
     constructor(domain) {
-        console.log('WHAT IS LOVE ', domain)
         //THIS LINE IS ONLY USED WHEN YOU'RE IN PRODUCTION MODE!
         this.domain = domain || "http://localhost:5000"; // API server domain
     }
@@ -35,7 +34,7 @@ export default class AuthHelperMethods {
                 return true;
             } else return false;
         } catch (err) {
-            console.log("expired check failed! Line 42: AuthService.js");
+            // console.log("expired check failed! Line 42: AuthService.js");
             return false;
         }
     };
@@ -58,7 +57,7 @@ export default class AuthHelperMethods {
     getConfirm = () => {
         // Using jwt-decode npm package to decode the token
         let answer = decode(this.getToken());
-        console.log("Recieved answer!");
+        // console.log("Recieved answer!");
         return answer;
     };
 

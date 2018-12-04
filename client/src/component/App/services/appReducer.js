@@ -14,7 +14,6 @@ const userReducer = (state = local, action) => {
     switch (action.type) {
         case SAVE_USER:
             const data = action.data
-            console.log('YEPAPAPAPA', data)
             return {
                 ...state,
                 firstname: data.firstname,
