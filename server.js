@@ -33,8 +33,8 @@ const exjwt = require('express-jwt');
 const urlDb = "mongodb://heroku_n1xpb5mr:n1xpb5mr@ds257981.mlab.com:57981/heroku_n1xpb5mr"
 const dbName = 'heroku_n1xpb5mr';
 const userCollection = 'user'
-
-server.listen(port, () => console.log(`Listening on port ${port}`));
+server.listen()
+// server.listen(port, () => console.log(`Listening on port ${port}`));
 
 
 app.use((req, res, next) => {

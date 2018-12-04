@@ -145,7 +145,7 @@
           <entry key="dummy" value="6" />
           <entry key="env" value="35" />
           <entry key="gitignore" value="14" />
-          <entry key="js" value="19351" />
+          <entry key="js" value="19369" />
           <entry key="json" value="68" />
           <entry key="jsx" value="14429" />
           <entry key="txt" value="1" />
@@ -156,7 +156,7 @@
         <counts>
           <entry key="JSON" value="68" />
           <entry key="JSX Harmony" value="14429" />
-          <entry key="JavaScript" value="19351" />
+          <entry key="JavaScript" value="19369" />
           <entry key="PLAIN_TEXT" value="62" />
         </counts>
       </usages-collector>
@@ -172,8 +172,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="36" column="68" selection-start-line="36" selection-start-column="68" selection-end-line="36" selection-end-column="68" />
+            <state relative-caret-position="258">
+              <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -375,8 +375,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="575" />
-    <option name="y" value="34" />
+    <option name="x" value="584" />
+    <option name="y" value="227" />
     <option name="width" value="1985" />
     <option name="height" value="859" />
   </component>
@@ -491,7 +491,7 @@
       <workItem from="1543790755485" duration="25590000" />
       <workItem from="1543849299206" duration="18457000" />
       <workItem from="1543924763573" duration="22950000" />
-      <workItem from="1543956138648" duration="4415000" />
+      <workItem from="1543956138648" duration="4979000" />
     </task>
     <task id="LOCAL-00001" summary="Testing &amp; installation">
       <created>1543074542605</created>
@@ -504,10 +504,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="316253000" />
+    <option name="totallyTimeSpent" value="316817000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="575" y="34" width="1985" height="859" extended-state="0" />
+    <frame x="584" y="227" width="1985" height="859" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13747454" />
@@ -903,8 +903,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="36" column="68" selection-start-line="36" selection-start-column="68" selection-end-line="36" selection-end-column="68" />
+        <state relative-caret-position="258">
+          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
