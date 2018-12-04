@@ -44,6 +44,27 @@ const jwtMW = exjwt({
 });
 
 /// CHECKING DIVERS ET VARIE SUR DB
+const getAllUser = () => {
+    return new Promise((resolve, reject) => {
+        dbInterface.connectDB(function (db) {
+            const collectionUser = db.collection(userCollection);
+            collectionUser.find({}, {
+                    projection: {
+                        _id: 0,
+                        pseudo: 1,
+                        firstname: 1,
+                        lastname: 1,
+                        userId: 1,
+                        profilePicture: 1
+                    }
+                }).toArray((err, exist) => {
+                    console.log('////// Ceci est un retour de data', exist)
+                    exist ? resolve(exist) : reject(err)
+                })
+        })
+    })
+}
+
 const existUser = (propDB, value) => {
     return new Promise((resolve, reject) => {
         dbInterface.connectDB(function (db) {
@@ -214,6 +235,18 @@ app.post('/getUser', (req, res) => {
             })
         })
         .catch((e) => console.log('Error sur GetUser ', e))
+})
+
+app.get('/getAllUser', (req,res) => {
+    getAllUser()
+        .then((data) => {
+            console.log('---- Ready to give you the night -----', data.length)
+            res.json({
+                success: true,
+                data
+            })
+        })
+        .catch(e => console.log('Erreur au retour de getAllUser', e))
 })
 
 app.post('/log-in', (req, res) => {

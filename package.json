@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "scripts": {
         "client": "cd client && yarn start",
-        "server": "node server.js",
+        "server": "nodemon server.js",
         "test" : "kill $(lsof -t -i :5000)",
         "dev": " concurrently --kill-others-on-fail \"yarn test\" \"yarn server\" \"yarn client\"",
         "start": "node server.js",

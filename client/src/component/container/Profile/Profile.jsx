@@ -108,6 +108,10 @@ class Profile
         this.props.history.replace('/login');
     }
 
+    _handleWall = () => {
+        this.props.history.replace('/wall');
+    }
+
     _handleDelete = (e) => {
         this.setState({
             ...this.state,
@@ -187,6 +191,11 @@ class Profile
                             title="Picture"
                         />
                     </CardMedia>
+                </Paper>
+                <Paper className={classes.column}>
+                    <Button
+                        onClick={() => this._handleWall()}
+                    >THE WALL</Button>
                 </Paper>
                 <Paper className={classes.column}>
                     <Button
@@ -295,7 +304,6 @@ class Profile
 
                 </Paper>
                 }
-                PROFILE
             </div>
         )
     }

@@ -54,10 +54,12 @@ class AppBarSN
             body: JSON.stringify({
                 email: this.props.data
             })
-        }).then(res => {
-            this.props.saveUser(res.user);
-            return Promise.resolve(res);
-        });
+        })
+            .then(res => {
+                this.props.saveUser(res.user);
+                return Promise.resolve(res);
+            })
+            .catch(e => {console.log(e)})
     }
 
     handleMenu = (event, ref) => {

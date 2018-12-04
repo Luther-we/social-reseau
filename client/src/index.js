@@ -17,8 +17,9 @@ import NotificationBar from './component/notificationBar/NotificationBar'
 import Login from './component/Login/Login'
 import SignIn from './component/SignIn/SignIn'
 import Profile from './component/container/Profile/Profile'
-import User from "./component/container/User/User";
-import Messenger from "./component/container/Messenger/Messenger";
+import User from './component/container/User/User'
+import Wall from './component/container/Wall/Wall'
+import Messenger from './component/container/Messenger/Messenger'
 import Admin from './component/container/Admin/Admin'
 import Whoops404 from './component/container/Error/Whoops404'
 
@@ -48,6 +49,7 @@ render(
                                 <Route exact path='/' component={Profile} />
                                 <Route path='/user/:handle' component={User}/>
                                 <Route path='/profile' component={Profile}/>
+                                <Route path='/wall' component={Wall} />
                                 <Route path='/messenger' component={Messenger}/>
                                 <Route path='/admin' component={Admin}/>
                                 <Route component={Whoops404}/>

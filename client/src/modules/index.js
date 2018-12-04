@@ -6,7 +6,6 @@ import * as reducers from '../reducers'
 
 export default combineReducers({
   ...reducers,
-  counter,
   form: formReducer,
   inputs: input
 })
