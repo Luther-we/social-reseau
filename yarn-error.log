@@ -1,0 +1,68 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.7.0/libexec/bin/yarn.js server
+
+PATH: 
+  /Users/Luther/.npm-global/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.7.0
+
+Node version: 
+  8.10.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Developpement/Projets/social-reseau/package.json: Unexpected token / in JSON at position 172
+      at JSON.parse (<anonymous>)
+      at /usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:1130:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:98:30)
+      at /usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:109:13
+      at <anonymous>
+
+npm manifest: 
+  {
+      "name": "example-create-react-app-express",
+      "version": "1.0.0",
+      "scripts": {
+          "client": "cd client && yarn start",
+          "server": "node server.js",
+  //        "server": "node --kill $(lsof -t -i :5000) && server.js",
+          "test" : "kill $(lsof -t -i :5000)",
+          "dev": " concurrently --kill-others-on-fail \"yarn test\" \"yarn server\" \"yarn client\"",
+          "start": "node server.js",
+          "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+      },
+      "dependencies": {
+          "@sendgrid/mail": "^6.3.1",
+          "axios": "^0.18.0",
+          "bcrypt": "^3.0.2",
+          "connected-react-router": "^4.5.0",
+          "cookie-parser": "^1.4.3",
+          "cors": "^2.8.5",
+          "express": "^4.16.2",
+          "express-jwt": "^5.3.1",
+          "jsonwebtoken": "^8.4.0",
+          "jwt-decode": "^2.2.0",
+          "mongodb": "^3.1.10",
+          "prop-types": "^15.6.2",
+          "react-redux": "^5.0.7",
+          "sanitize.styl": "^3.3.0",
+          "serve": "^10.0.2",
+          "socket.io": "^2.1.1",
+          "websocket": "^1.0.28"
+      },
+      "devDependencies": {
+          "concurrently": "^3.5.0",
+          "kexec": "^3.0.0",
+          "ws": "3.3.2"
+      }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

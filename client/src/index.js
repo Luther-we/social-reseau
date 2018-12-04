@@ -17,7 +17,6 @@ import NotificationBar from './component/notificationBar/NotificationBar'
 import Login from './component/Login/Login'
 import SignIn from './component/SignIn/SignIn'
 import Profile from './component/container/Profile/Profile'
-import Wall from './component/container/Wall/Wall'
 import User from "./component/container/User/User";
 import Messenger from "./component/container/Messenger/Messenger";
 import Admin from './component/container/Admin/Admin'
@@ -44,16 +43,15 @@ render(
                     <HashRouter>
                         <div>
                             <Switch>
-                                <Route exact path='/' component={Wall} />
-                                <Route path='/user' component={User}/>
+                                <Route path='/login' component={Login} />
+                                <Route path='/signIn' component={SignIn} />
+                                <Route exact path='/' component={Profile} />
+                                <Route path='/user/:handle' component={User}/>
                                 <Route path='/profile' component={Profile}/>
                                 <Route path='/messenger' component={Messenger}/>
                                 <Route path='/admin' component={Admin}/>
-                                <Route path='/login' component={Login} />
-                                <Route path='/signIn' component={SignIn} />
                                 <Route component={Whoops404}/>
                             </Switch>
-
                             <div className="App" style={{width: '100%'}}>
                                 <NotificationBar/>
                             </div>

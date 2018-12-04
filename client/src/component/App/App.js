@@ -17,12 +17,9 @@ class App
     }
 
     render() {
-        const {children} = this.props
 
         return (
             <div>
-                <Button onClick={this._handleLogout}>LOGOUT</Button>
-                {children}
                 <AppBarSN
                     data = {this.props.confirm.username}
                 />

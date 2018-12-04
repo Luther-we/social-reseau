@@ -45,7 +45,6 @@ class LoginForm
     submit = (e) => {
         this.Auth.login(e.email, e.password)
             .then(res => {
-                console.log('Total eclipse....', res)
                 if (res.success) {
                     this.props.openNotificationBarValid(res.idMessage)
                     this.props.history.replace("/");
@@ -53,16 +52,11 @@ class LoginForm
                     this.props.openNotificationBarError(res.idMessage)
                 }
             })
-            .catch(err => {
-                console.log('Total eclipse....', err)
-                alert(err);
-            });
+            .catch(err => console.log(err))
     }
 
     render() {
         const {classes} = this.props
-
-        console.log('SAY ME ', this.props.history)
         return (
             <div className={classes.divWrapper}>
                 <Paper

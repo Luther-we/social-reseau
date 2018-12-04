@@ -1,4 +1,5 @@
-import {SAVE_USER} from './appAction'
+import {SAVE_USER, SET_USER_FRIENDS} from './appAction'
+import devConst from '../../../utilities/devConst'
 
 const local = {
     user : {
@@ -26,7 +27,15 @@ const userReducer = (state = local, action) => {
                 userId: data.userId,
                 city: data.city,
                 zipCode: data.zipCode,
-                cellPhone: data.cellPhone
+                cellPhone: data.cellPhone,
+                profileCover: data.profileCover,
+                profilePicture: data.profilePicture,
+                friends: devConst.simFriends
+            }
+        case SET_USER_FRIENDS:
+            return {
+                ...state,
+                friends: action.data
             }
         default:
             return state

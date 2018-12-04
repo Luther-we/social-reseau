@@ -1,3 +1,9 @@
+// friend relation:
+// 0 - j'ai demandé
+// 1 - j'ai été demandé
+// 2 - accepté
+
+
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
@@ -50,9 +56,99 @@ const existUser = (propDB, value) => {
         })
     })
 }
+
+const removeUser = (propDB, value) => {
+    return new Promise((resolve, reject) => {
+        dbInterface.connectDB(function (db) {
+            const collectionUser = db.collection(userCollection);
+            collectionUser.remove({
+                [`${propDB}`]: value
+            }, (err, ok) => {
+                ok ? console.log('UIIIIII') : console.log('NOOOOOOOOO')
+                ok ? resolve(ok) : reject(err)
+            })
+        })
+    })
+}
+
 existUser('email', 'jnaymar@net.com')
     .then((data) => {console.log('User exist /////', data)})
     .catch((data) => {console.log('Nop /////', data)})
+
+app.post('/deleteUser', (req, res) => {
+    const {userId} = req.body;
+    console.log('Yepa', userId)
+    removeUser('userId', userId)
+        .then((data) => {
+            console.log('En cas de succés, je reçois ', data)
+            res.json({
+                success: true,
+                idMessage: 'valid.deleteAccount'
+            })
+        })
+        .catch((data) => {
+            console.log('Nop /////', data)
+            res.json({
+                success: false,
+                idMessage: 'error.noDeleteAccount'
+            });
+        })
+});
+
+app.get('/getUser/:id', (req, res) => {
+    console.log('test', req.params.id)
+    const id = req.params.id
+    existUser('userId', id)
+        .then((data) =>{
+            let obj = {
+                userId: data.userId,
+                pseudo: data.pseudo,
+                lastname: data.lastname,
+                firstname: data.firstname,
+                email: data.email,
+                gender: data.gender,
+                age: data.age,
+                city: data.city,
+                zipCode: data.zipCode,
+                cellPhone: data.cellPhone
+            }
+            res.json(obj)
+        })
+        .catch((e) => console.log(e))
+})
+
+app.post('/getFriends', (req, res) => {
+    const {tabFriends} = req.body
+    const tabBack = []
+    new Promise((resolve, reject) =>{
+        tabFriends.map((friend, index, tab) => {
+        existUser('userId', friend.userId)
+            .then(
+                (data) => {
+                    console.log('----OK----', data.userId, data.profilePicture)
+                    let obj = {
+                        relation: friend.relation,
+                        userId: data.userId,
+                        profilePicture: data.profilePicture,
+                        pseudo: data.pseudo,
+                        firstname: data.firstname,
+                        lastname: data.lastname
+                    }
+                    tabBack.push(obj)
+                    tab.length === index+1 && resolve(tabBack)
+                }
+            )
+            .catch(
+                (e) => {console.log('erreur à getFriend')}
+            )
+    })})
+        .then (
+            (data) => {
+                console.log('console.log data -----', data)
+                res.json(data)
+            })
+        .catch((e) => console.log(e))
+})
 
 app.post('/signup', (req, res) => {
     const {pseudo, password, lastname, firstname, email, gender, age, city, zipCode, cellPhone} = req.body;
@@ -68,6 +164,7 @@ app.post('/signup', (req, res) => {
                     res.json({error: true, idMessage: 'error.emailExist'})
                 }
             )
+
             .catch(
                 (data) => {
                     console.log(data)
@@ -87,7 +184,9 @@ app.post('/signup', (req, res) => {
                             password: hash,
                             verifEmail: false,
                             createAccount: timeStamp,
-                            rule: 0
+                            rule: 0,
+                            profileCover: 'https://previews.123rf.com/images/chekat/chekat1512/chekat151200014/49320319-seamless-de-bananes-m%C3%BBres-jaunes-sur-un-fond-bleu.jpg',
+                            profilePicture: 'https://www.hominides.com/data/images/illus/grands_singes/gorille-genome-sequence.jpg'
                         }, (err, success) => {
                             if (success) {
                                 console.log("User created: ");
@@ -114,6 +213,7 @@ app.post('/getUser', (req, res) => {
                 user
             })
         })
+        .catch((e) => console.log('Error sur GetUser ', e))
 })
 
 app.post('/log-in', (req, res) => {
@@ -151,7 +251,11 @@ app.post('/log-in', (req, res) => {
             })
         })
         .catch(() => {
-            res.json(false);
+            res.json({
+                success: false,
+                idMessage: 'error.userNotExist',
+                token: null
+            });
             console.log('DAWAAAAA')
         })
 })

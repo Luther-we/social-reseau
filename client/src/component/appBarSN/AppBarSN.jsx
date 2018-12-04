@@ -55,16 +55,13 @@ class AppBarSN
                 email: this.props.data
             })
         }).then(res => {
-            console.log('okok', res)
             this.props.saveUser(res.user);
             return Promise.resolve(res);
         });
     }
 
     handleMenu = (event, ref) => {
-        console.log('yes')
         this.setState({[`${ref}`]: event.currentTarget});
-        console.log(event.currentTarget)
     };
 
     handleClose = (ref) => {
@@ -73,7 +70,6 @@ class AppBarSN
 
     render() {
         const {classes, data} = this.props
-        console.log('normalement ....', data)
         return (
             <AppBar position="fixed" color="primary" className={classes.appBar}>
                 <Toolbar>

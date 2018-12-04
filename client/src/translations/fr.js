@@ -14,13 +14,15 @@ export default flatten({
         city: "Ville",
         zipCode: "Code Postal",
         cellPhone: "Téléphone mobile",
-        confirmEmail: 'Confirmation Email'
+        confirmEmail: 'Confirmation Email',
+        birthday: 'Date de naissance'
     },
     button: {
         toLogin: "Se connecter",
         signIn: 'Créer un compte',
         submit: "Valider",
-        yetAccount: 'Vous-avez déjà un compte ?'
+        yetAccount: 'Vous-avez déjà un compte ?',
+        toAccount: 'Voir mon compte'
     },
     caption: {
         noAccount: 'Pas encore de compte ?',
@@ -28,7 +30,8 @@ export default flatten({
     },
     title: {
         signIn: 'Créer un compte',
-        connectTo: 'Connexion'
+        connectTo: 'Connexion',
+        friends: 'Amis'
     },
     language: {
         fr: "français",
@@ -59,10 +62,18 @@ export default flatten({
         lastnameRequire: 'Veuillez entrer votre nom',
         emailExist: 'Cet Email est déjà enregistré, veuillez en renseigner un autre, connectez vous avec cette' +
             ' adresse mail ou réinitialisez votre mot de passe',
-        somethingWrong: 'Quelque chose ne tourne pas rond, repassez plus tard'
+        somethingWrong: 'Quelque chose ne tourne pas rond, repassez plus tard',
+        noDeleteAccount: 'Une erreur durant la procédure a eu lieu, merci de recommencer',
+        emailNotSame: 'L\'adresse email renseignée n\'est pas celle du compte en cours'
     },
     valid: {
         userCreated: 'Le nouveau compte a bien été crée, ne reste plus qu\'à vous connecter',
-        connect: 'Vous êtes bien connecté'
+        connect: 'Vous êtes bien connecté',
+        deleteAccount: 'Votre compte a bien été supprimé. Vous nous manquez déjà'
+    },
+    user: {
+        waitingIValidAFriend: ' vous a demandé en ami, gérez vos demandes pour accèder à son compte',
+        waitingValidation1: 'Vous avez déjà demandé ',
+        waitingValidation2: ' vous pourrez voir ce compte quand il aura accepté votre demande'
     }
 })
