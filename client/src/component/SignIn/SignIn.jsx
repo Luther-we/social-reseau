@@ -62,12 +62,10 @@ class SignIn
     Auth = new AuthHelperMethods()
 
     submit = (e) => {
-        console.log(e)
         axios.post("/signup", {
             ...e
         })
             .then(data => {
-                console.log('retour', data);
                 if (data.data.error) {
                     this.props.openNotificationBarError(data.data.idMessage)
                 } else {

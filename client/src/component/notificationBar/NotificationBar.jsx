@@ -99,7 +99,6 @@ const styles2 = theme => ({
 class NotificationBar extends PureComponent {
     handleClose = (e) => {
         this.props.closeNotificationBar()
-        console.log('YEPA ', e)
     }
 
     render() {

@@ -30,7 +30,6 @@ class ConfirmPasswordPut
             autoComplete,
             meta
         } = this.props
-        console.log('test', input)
         return (
             <FormControl
                 className={classes.fieldS}>

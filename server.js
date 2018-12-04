@@ -33,7 +33,7 @@ const urlDb = process.env.MONGODB_URI
 const dbName = 'heroku_n1xpb5mr';
 const userCollection = 'user'
 
-mongodb.connect(urlDb, function (err, database) {
+mongo.connect(urlDb, function (err, database) {
     if (err) {
         console.log(err);
         process.exit(1);
