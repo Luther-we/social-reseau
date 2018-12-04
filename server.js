@@ -5,12 +5,13 @@
 
 
 const express = require("express");
+const mongo = require('mongodb').MongoClient;
 const http = require("http");
 const socketIo = require("socket.io");
 const port = process.env.PORT || 5000;
 const path = require('path')
 const sgMail = require('@sendgrid/mail')
-const dbInterface = require('./modules/db.js')
+// const dbInterface = require('./modules/db.js')
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
@@ -24,11 +25,16 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const exjwt = require('express-jwt');
 
+// const urlDb = "mongodb://localhost:27017/user"
 // const dbName = "test"
-const userCollection = 'test'
-// const urlDB = "mongodb://localhost:27017/user"
-// const urlDB = "mongodb://heroku_j7ckfmlg:fokty2-pevvih-quRkip@ds215093.mlab.com:15093/heroku_j7ckfmlg";
-// const dbName = 'heroku_rgz600fc';
+// const userCollection = 'test'
+
+
+const urlDb = "mongodb://heroku_j7ckfmlg:fokty2-pevvih-quRkip@ds215093.mlab.com:15093/heroku_j7ckfmlg";
+const dbName = 'heroku_rgz600fc';
+const userCollection = 'user'
+
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-type,Authorization');
@@ -46,8 +52,8 @@ const jwtMW = exjwt({
 /// CHECKING DIVERS ET VARIE SUR DB
 const getAllUser = () => {
     return new Promise((resolve, reject) => {
-        dbInterface.connectDB(function (db) {
-            const collectionUser = db.collection(userCollection);
+        mongo.connect(urlDb, {useNewUrlParser: true}, function(err, client){
+            const collectionUser = client.db(dbName).collection(userCollection);
             collectionUser.find({}, {
                     projection: {
                         _id: 0,
@@ -67,8 +73,8 @@ const getAllUser = () => {
 
 const existUser = (propDB, value) => {
     return new Promise((resolve, reject) => {
-        dbInterface.connectDB(function (db) {
-            const collectionUser = db.collection(userCollection);
+        mongo.connect(urlDb, {useNewUrlParser: true}, function(err, client){
+            const collectionUser = client.db(dbName).collection(userCollection);
             collectionUser.findOne({
                 [`${propDB}`]: value
             }, (err, exist) => {
@@ -80,8 +86,8 @@ const existUser = (propDB, value) => {
 
 const removeUser = (propDB, value) => {
     return new Promise((resolve, reject) => {
-        dbInterface.connectDB(function (db) {
-            const collectionUser = db.collection(userCollection);
+        mongo.connect(urlDb, {useNewUrlParser: true}, function(err, client){
+            const collectionUser = client.db(dbName).collection(userCollection);
             collectionUser.remove({
                 [`${propDB}`]: value
             }, (err, ok) => {
@@ -189,8 +195,8 @@ app.post('/signup', (req, res) => {
             .catch(
                 (data) => {
                     console.log(data)
-                    dbInterface.connectDB(function (db) {
-                        const collectionUser = db.collection(userCollection);
+                    mongo.connect(urlDb, {useNewUrlParser: true}, function(err, client){
+                        const collectionUser = client.db(dbName).collection(userCollection);
                         collectionUser.insertOne({
                             userId,
                             pseudo,
