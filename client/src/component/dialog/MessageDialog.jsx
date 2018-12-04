@@ -8,7 +8,6 @@ class MessageDialog extends PureComponent {
     };
 
     handleDelete = () => {
-        console.log('Test')
     }
 
     render() {

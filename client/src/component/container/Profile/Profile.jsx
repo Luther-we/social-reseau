@@ -117,7 +117,6 @@ class Profile
             ...this.state,
             openDelete: true
         })
-        console.log(this.state.openDelete)
     }
 
     handleClose = () => {
@@ -125,7 +124,6 @@ class Profile
             ...this.state,
             openDelete: false
         })
-        console.log(this.state.openDelete)
     }
 
     _submitDelete = (e) => {
@@ -139,7 +137,6 @@ class Profile
                 email: this.state.valueEmailDelete
             })
                 .then((data) => {
-                    console.log('cest fini', data)
                     if (data.data.success) {
                         this.props.openNotificationBarValid(data.data.idMessage)
                         this.Auth.logout()

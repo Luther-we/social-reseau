@@ -29,12 +29,23 @@ const exjwt = require('express-jwt');
 // const dbName = "test"
 // const userCollection = 'test'
 
-
-const urlDb = "mongodb://heroku_n1xpb5mr:n1xpb5mr@ds257981.mlab.com:57981/heroku_n1xpb5mr"
+const urlDb = process.env.MONGODB_URI
 const dbName = 'heroku_n1xpb5mr';
 const userCollection = 'user'
-// server.listen()
-server.listen(port, () => console.log(`Listening on port ${port}`));
+
+mongodb.connect(urlDb, function (err, database) {
+    if (err) {
+        console.log(err);
+        process.exit(1);
+    }
+
+    // Save database object from the callback for reuse.
+    console.log("Database connection ready");
+
+});
+
+
+
 
 
 app.use((req, res, next) => {
@@ -75,7 +86,6 @@ const getAllUser = () => {
                         profilePicture: 1
                     }
                 }).toArray((err, exist) => {
-                    console.log('////// Ceci est un retour de data', exist)
                     exist ? resolve(exist) : reject(err)
                 })
             }
@@ -107,7 +117,6 @@ const removeUser = (propDB, value) => {
                 collectionUser.remove({
                     [`${propDB}`]: value
                 }, (err, ok) => {
-                    ok ? console.log('UIIIIII') : console.log('NOOOOOOOOO')
                     ok ? resolve(ok) : reject(err)
                 })
             }
@@ -115,23 +124,16 @@ const removeUser = (propDB, value) => {
     })
 }
 
-existUser('email', 'jnaymar@net.com')
-    .then((data) => {console.log('User exist /////', data)})
-    .catch((data) => {console.log('Nop /////', data)})
-
 app.post('/deleteUser', (req, res) => {
     const {userId} = req.body;
-    console.log('Yepa', userId)
     removeUser('userId', userId)
         .then((data) => {
-            console.log('En cas de succés, je reçois ', data)
             res.json({
                 success: true,
                 idMessage: 'valid.deleteAccount'
             })
         })
         .catch((data) => {
-            console.log('Nop /////', data)
             res.json({
                 success: false,
                 idMessage: 'error.noDeleteAccount'
@@ -140,7 +142,6 @@ app.post('/deleteUser', (req, res) => {
 });
 
 app.get('/getUser/:id', (req, res) => {
-    console.log('test', req.params.id)
     const id = req.params.id
     existUser('userId', id)
         .then((data) =>{
@@ -169,7 +170,6 @@ app.post('/getFriends', (req, res) => {
         existUser('userId', friend.userId)
             .then(
                 (data) => {
-                    console.log('----OK----', data.userId, data.profilePicture)
                     let obj = {
                         relation: friend.relation,
                         userId: data.userId,
@@ -188,7 +188,6 @@ app.post('/getFriends', (req, res) => {
     })})
         .then (
             (data) => {
-                console.log('console.log data -----', data)
                 res.json(data)
             })
         .catch((e) => console.log(e))
@@ -196,7 +195,6 @@ app.post('/getFriends', (req, res) => {
 
 app.post('/signup', (req, res) => {
     const {pseudo, password, lastname, firstname, email, gender, age, city, zipCode, cellPhone} = req.body;
-    console.log('YEPA !!!', pseudo, password, lastname, firstname, email, gender, age, city, zipCode, cellPhone)
     const saltRounds = 10;
     const timeStamp = Date.now()
     const userId = '_' + Math.random().toString(36).substr(2, 9)
@@ -204,14 +202,12 @@ app.post('/signup', (req, res) => {
         existUser('email', email)
             .then(
                 (data) => {
-                    console.log('---------- YES ----------')
                     res.json({error: true, idMessage: 'error.emailExist'})
                 }
             )
 
             .catch(
                 (data) => {
-                    console.log(data)
                     mongo.connect(urlDb, {useNewUrlParser: true}, function(err, client){
                         if (typeof client !== 'undefined' && client !== null) {
                             const collectionUser = client.db(dbName).collection(userCollection);
@@ -234,10 +230,8 @@ app.post('/signup', (req, res) => {
                                 profilePicture: 'https://www.hominides.com/data/images/illus/grands_singes/gorille-genome-sequence.jpg'
                             }, (err, success) => {
                                 if (success) {
-                                    console.log("User created: ");
                                     res.json({error: false, idMessage: 'valid.userCreated'});
                                 } else if (err) {
-                                    console.log('------------- User pas enregistré -----------')
                                     res.json({error: true, idMessage: 'error.somethingWrong'})
                                 }
                             })
@@ -251,7 +245,6 @@ app.post('/signup', (req, res) => {
 
 app.post('/getUser', (req, res) => {
     const {email} = req.body
-    console.log('Email reçu ', email)
     existUser('email', email)
         .then((user) => {
             res.json({
@@ -265,7 +258,6 @@ app.post('/getUser', (req, res) => {
 app.get('/getAllUser', (req,res) => {
     getAllUser()
         .then((data) => {
-            console.log('---- Ready to give you the night -----', data.length)
             res.json({
                 success: true,
                 data
@@ -276,10 +268,8 @@ app.get('/getAllUser', (req,res) => {
 
 app.post('/log-in', (req, res) => {
     const {email, password} = req.body;
-    console.log("User submitted: ", email, password);
     existUser('email', email)
         .then((user) => {
-            console.log('User found:  ', user)
             if (user === null) {
                 res.json({
                     success: false,
@@ -289,9 +279,7 @@ app.post('/log-in', (req, res) => {
             }
             bcrypt.compare(password, user.password, function (err, result) {
                 if (result === true) {
-                    console.log("Valid!");
                     let token = jwt.sign({username: email}, 'i change something 2day', {expiresIn: 129600});
-                    console.log('token', token)
                     res.json({
                         success: true,
                         idMessage: 'valid.connect',
@@ -299,7 +287,6 @@ app.post('/log-in', (req, res) => {
                         user
                     });
                 } else {
-                    console.log("Entered Password and Hash do not match!");
                     res.json({
                         success: false,
                         idMessage: 'error.userNotExist',
@@ -324,7 +311,6 @@ app.post('/log-in', (req, res) => {
 
 
 io.on("connection", socket => {
-    console.log("New client connected", socket.id)
     // mongo.connect(urlDB, {useNewUrlParser: true}, function (err, client) {
     //     const collectionUser = client.db(dbName).collection('test');
     //     collectionUser.find()
@@ -382,7 +368,6 @@ io.on("connection", socket => {
 
 
     socket.on('test', () => {
-        console.log('yes')
         socket.emit('reponse', {1: 'bonjour'})
 
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -400,3 +385,6 @@ io.on("connection", socket => {
 
     socket.on("disconnect", () => console.log("Client disconnected"));
 })
+
+// server.listen()
+server.listen(port, () => console.log(`Listening on port ${port}`));

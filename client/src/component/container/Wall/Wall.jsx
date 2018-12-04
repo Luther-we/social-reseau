@@ -70,7 +70,6 @@ class Wall
     componentWillMount () {
         axios.get('/getAllUser')
             .then(data => {
-                console.log('retour ===', data)
                 this.props.saveAllUser(data.data.data)
             })
             .catch(e => console.log(e))
@@ -78,7 +77,6 @@ class Wall
 
     render() {
         const {classes, allUser} = this.props
-        console.log(allUser)
         return (
 
                 <div>
