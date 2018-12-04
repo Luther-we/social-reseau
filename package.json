@@ -4,7 +4,7 @@
     "scripts": {
         "client": "cd client && yarn start",
         "server": "nodemon server.js",
-        "test" : "kill $(lsof -t -i :5000)",
+        "test": "kill $(lsof -t -i :5000)",
         "dev": " concurrently --kill-others-on-fail \"yarn test\" \"yarn server\" \"yarn client\"",
         "start": "node server.js",
         "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
@@ -20,7 +20,7 @@
         "express-jwt": "^5.3.1",
         "jsonwebtoken": "^8.4.0",
         "jwt-decode": "^2.2.0",
-        "mongodb": "^3.1.10",
+        "mongodb": "^3.1.4",
         "prop-types": "^15.6.2",
         "react-redux": "^5.0.7",
         "sanitize.styl": "^3.3.0",
