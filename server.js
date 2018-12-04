@@ -34,6 +34,7 @@ const urlDb = "mongodb://heroku_n1xpb5mr:n1xpb5mr@ds257981.mlab.com:57981/heroku
 const dbName = 'heroku_n1xpb5mr';
 const userCollection = 'user'
 
+server.listen(port, () => console.log(`Listening on port ${port}`));
 
 
 app.use((req, res, next) => {
@@ -299,7 +300,7 @@ app.post('/log-in', (req, res) => {
         })
 })
 
-server.listen(port, () => console.log(`Listening on port ${port}`));
+
 
 if (process.env.NODE_ENV === 'production') {
     // Serve any static files
@@ -335,9 +336,6 @@ io.on("connection", socket => {
     //     console.log('Ok OK ----', value)
     // })
 
-    //
-    //                         // token: {},
-    //                         // profilPicture: ["refHexa"],
     //                         // profilText: ""
     //                         // userSettings: {
     //                         //     color: "#hexa"
@@ -391,13 +389,3 @@ io.on("connection", socket => {
 
     socket.on("disconnect", () => console.log("Client disconnected"));
 })
-
-
-// const getApiAndEmit = async socket => {
-//     try {
-//         const res = await axios.get();
-//         socket.emit("FromAPI", res.data.currently.temperature);
-//     } catch (error) {
-//         console.error(`Error: ${error.code}`);
-//     }
-// };
