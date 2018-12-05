@@ -3,7 +3,6 @@
 // 1 - j'ai été demandé
 // 2 - accepté
 
-
 const express = require("express");
 const mongo = require('mongodb').MongoClient;
 const http = require("http");
@@ -11,14 +10,12 @@ const socketIo = require("socket.io");
 const port = process.env.PORT || 5000;
 const path = require('path')
 const sgMail = require('@sendgrid/mail')
-// const dbInterface = require('./modules/db.js')
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
+
 const sendMail = false
-
-
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
@@ -44,10 +41,6 @@ mongo.connect(urlDb, function (err, database) {
 
 });
 
-
-
-
-
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-type,Authorization');
     next();
@@ -72,8 +65,8 @@ const jwtMW = exjwt({
 
 /// CHECKING DIVERS ET VARIE SUR DB
 const getAllUser = () => {
-    new Promise((resolve, reject) => {
-        mongo.connect(urlDb, {useNewUrlParser: true},(err, client) => {
+    return new Promise((resolve, reject) => {
+        mongo.connect(urlDb, { useNewUrlParser: true },(err, client) => {
             if (typeof client !== 'undefined' && client !== null) {
                 const collectionUser = client.db(dbName).collection(userCollection);
                 collectionUser.find({}, {
@@ -305,33 +298,7 @@ app.post('/log-in', (req, res) => {
         })
 })
 
-
-
-
-
-
 io.on("connection", socket => {
-    // mongo.connect(urlDB, {useNewUrlParser: true}, function (err, client) {
-    //     const collectionUser = client.db(dbName).collection('test');
-    //     collectionUser.find()
-    // })
-
-
-    // socket.on('submitUser', (value) => {
-    //     mongo.connect(urlDB, {useNewUrlParser: true}, (err, client) => {
-    //         const collectionUser = client.db(dbName).collection('test');
-    //         collectionUser.findOne({email: value.email},  (err, exist) => {
-    //             console.log('err', err)
-    //                 console.log('exist', exist)
-    //             if (exist) {
-    //                 socket.emit('userReturn', {error: false, exist})
-    //             } else {
-    //                 socket.emit('userReturn', {error: true, idMessage: 'error.userNotExist'})
-    //             }
-    //         })
-    //     })
-    //     console.log('Ok OK ----', value)
-    // })
 
     //                         // profilText: ""
     //                         // userSettings: {

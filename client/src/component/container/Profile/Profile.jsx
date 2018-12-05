@@ -167,6 +167,7 @@ class Profile
             if (friend.relation === 2) {
                 tabAlreadyFriend.push(friend)
             }
+            return null
         })
 
         return (
@@ -296,6 +297,7 @@ class Profile
                                 </Card>
                             )
                         }
+                        return null
                     }
                 )}
 

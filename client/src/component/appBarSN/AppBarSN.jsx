@@ -71,7 +71,7 @@ class AppBarSN
     };
 
     render() {
-        const {classes, data} = this.props
+        const {classes} = this.props
         return (
             <AppBar position="fixed" color="primary" className={classes.appBar}>
                 <Toolbar>

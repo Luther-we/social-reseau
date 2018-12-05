@@ -1,14 +1,8 @@
 import React, {PureComponent} from 'react'
-import App from "../../App/App";
 import withAuth from "../../auth/withAuth";
 import Title from "../../typography/Title";
 import appConst from "../../../utilities/appConst";
 import {Card, CardActionArea, CardContent, CardMedia, Paper, withStyles} from "@material-ui/core";
-import {setUserFriends} from "../../App/services/appAction";
-import {
-    openNotificationBarError,
-    openNotificationBarValid
-} from "../../notificationBar/services/notificationBarActions";
 import {compose} from "redux";
 import connect from "react-redux/es/connect/connect";
 import AuthHelperMethods from "../../auth/AuthHelperMethods";
@@ -75,11 +69,16 @@ class Wall
             .catch(e => console.log(e))
     }
 
+    actionOnClick = (event) => {
+        const id= event.target.title
+        this.props.history.replace(`/user/${id}`)
+    }
+
     render() {
         const {classes, allUser} = this.props
         return (
 
-                <div>
+                <div className={classes.divWrapper}>
                     <Paper
                         className={classes.column}
                         elevation={3}
@@ -108,6 +107,7 @@ class Wall
                                         </Card>
                                     )
                                 }
+                                return null
                             }
                         )}
 

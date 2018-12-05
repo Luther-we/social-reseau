@@ -19,6 +19,7 @@ const wallReducer = (state = local, action) => {
                     userId: elem.userId || '_2b54gk1ij'
                 }
                 tabInter.push(obj)
+                return null
             })
             return {
                 ...state,

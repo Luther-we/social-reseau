@@ -1,8 +1,6 @@
 import React, {PureComponent} from 'react'
 import '../../App.css'
 
-import {Button} from '@material-ui/core'
-
 import AuthHelperMethods from '../auth/AuthHelperMethods'
 import withAuth from '../auth/withAuth'
 import AppBarSN from '../appBarSN/AppBarSN'

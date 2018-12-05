@@ -74,6 +74,7 @@ export default flatten({
     user: {
         waitingIValidAFriend: ' vous a demandé en ami, gérez vos demandes pour accèder à son compte',
         waitingValidation1: 'Vous avez déjà demandé ',
-        waitingValidation2: ' vous pourrez voir ce compte quand il aura accepté votre demande'
+        waitingValidation2: ' vous pourrez voir ce compte quand il aura accepté votre demande',
+        askToFriend: 'Demander en ami'
     }
 })

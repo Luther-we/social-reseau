@@ -97,7 +97,9 @@ class User
                         this.state.user.friends && this.state.user.friends.map((friend) => {
                             if (friend.relation === 2) {
                                 tabInter.push(friend)
+                                return null
                             }
+                            return null
                         })
                         this.setState({
                             user: {
@@ -114,6 +116,10 @@ class User
             .catch(e => console.log('retour erreur', e))
     }
 
+    _handleAskForFriend = () => {
+
+    }
+
     actionOnClick = (event) => {
         const id= event.target.title
         this.props.history.replace(`/user/${id}`)
@@ -123,9 +129,15 @@ class User
         switch (ref)  {
             case 'goAccount':
                 this.props.history.replace("/profile")
+                break
             default:
-                return
+                return null
         }
+    }
+
+    actionOnClick = (event) => {
+        const id= event.target.title
+        this.props.history.replace(`/user/${id}`)
     }
 
     findObjectByKey= (array, key, value) => {
@@ -140,6 +152,7 @@ class User
                     }
                 })
             }
+            return null
         })
     }
 
@@ -168,6 +181,21 @@ class User
                         />
                     </CardMedia>
                 </Paper>
+                {user.autorise && user.autorise === 2 &&
+                <div>
+                    <Paper
+                        className={classes.column}
+                        elevation={3}
+                        square
+                    >
+                        <Button
+                            onClick={() => this._handleAskForFriend()}
+                        >
+                            <FormattedMessage id='user.askToFriend'/>
+                        </Button>
+                    </Paper>
+                </div>
+                }
                 {user.autorise && user.autorise === 2 &&
                 <div>
                     <Paper
@@ -266,6 +294,7 @@ class User
                                     </Card>
                                 )
                             }
+                        return null
                         }
                     )}
                     </Paper>
